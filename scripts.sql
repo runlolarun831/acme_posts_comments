@@ -18,7 +18,7 @@ INSERT INTO tags(id, text, post_id) VALUES('a1eb855a-1dd3-4aec-9dd7-aff78be20d0e
 INSERT INTO tags(id, text, post_id) VALUES('fe5a1929-78f2-4c94-a78c-d548952981ea','Loved it!','ebaae031-4147-4189-b3a8-de344e528231');
 INSERT INTO tags(id, text, post_id) VALUES('54f43c6b-56a1-4a58-92fb-7a8147ad8eef','What???','ebaae031-4147-4189-b3a8-de344e528231');
 
-SELECT tags.text, posts.topic
+SELECT posts.id, posts.topic,tags.text
 FROM tags
 JOIN posts
 On tags.post_id = posts.id
