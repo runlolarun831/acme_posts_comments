@@ -1,9 +1,20 @@
 const pg = require('pg');
+const uuid = require('uuid');
 const { Client } = pg;
 
 const client = new Client('postgres://localhost/acme_post_tags_db');
 
 client.connect();
+
+const generateIds = (...names)=> {
+  return names.reduce((acc, name)=> {
+    acc[name] = uuid.v4();
+    return acc;
+  }, {});
+};
+
+const ids = generateIds('node_category','express_category', 'react_category','dev_1', 'dev_2', 'dev_3');
+
 
 const  SQL = `DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS posts;
@@ -17,14 +28,13 @@ CREATE TABLE tags(
   text VARCHAR(255) UNIQUE NOT NULL,
   post_id UUID REFERENCES posts(id)
 );
-INSERT INTO posts(id, topic) VALUES('e4d3fdab-00ca-4c1e-abd2-a24cbbe01a66','Node');
-INSERT INTO posts(id, topic) VALUES('985b402f-b6a3-4f0a-8bb9-860662620415','Express');
-INSERT INTO posts(id, topic) VALUES('ebaae031-4147-4189-b3a8-de344e528231','React');
+INSERT INTO posts(id, topic) VALUES('${ids.node_category}','Node');
+INSERT INTO posts(id, topic) VALUES('${ids.express_category}','Express');
+INSERT INTO posts(id, topic) VALUES('${ids.react_category}','React');
 
-INSERT INTO tags(id, text, post_id) VALUES('a1eb855a-1dd3-4aec-9dd7-aff78be20d0e','Challenging','985b402f-b6a3-4f0a-8bb9-860662620415');
-INSERT INTO tags(id, text, post_id) VALUES('fe5a1929-78f2-4c94-a78c-d548952981ea','Loved it!','ebaae031-4147-4189-b3a8-de344e528231');
-INSERT INTO tags(id, text, post_id) VALUES('54f43c6b-56a1-4a58-92fb-7a8147ad8eef','What???','ebaae031-4147-4189-b3a8-de344e528231');
-INSERT INTO tags(id, text, post_id) VALUES('f6baad42-ed7f-496f-9718-fa05b21b8304','Allergic REACTion...','ebaae031-4147-4189-b3a8-de344e528231');
+INSERT INTO tags(id, text, post_id) VALUES('${ids.dev_1}','Challenging','${ids.express_category}');
+INSERT INTO tags(id, text, post_id) VALUES('${ids.dev_2}','Loved it!','${ids.react_category}');
+INSERT INTO tags(id, text, post_id) VALUES('${ids.dev_3}','What???','${ids.react_category}');
 `;
 
 
