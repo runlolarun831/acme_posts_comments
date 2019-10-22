@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const { syncAndSeed, findAllTags, findAllPosts } = require('./db');
 
-app.get('/api/tags', (req, res, next)=> {
+app.get('/api/tags', (req, res, next) => {
   findAllTags()
     .then( tags => res.send(tags))
     .catch(next);
@@ -15,7 +15,7 @@ app.get('/api/posts', (req, res, next)=> {
     .catch(next);
 });
 
-app.get('/', (req, res, next)=> res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/', (req, res, next) => res.sendFile(path.join(__dirname, 'index.html')));
 
 syncAndSeed()
-  .then(()=> app.listen(3001, ()=> console.log('listening on port 3001')));
+  .then(() => app.listen(3001, () => console.log('listening on port 3001')));
