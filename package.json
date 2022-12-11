@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/runlolarun831/acme_posts_comments#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.3"
   }
 }
